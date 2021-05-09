@@ -1,23 +1,33 @@
 import 'package:esvadhayaapp/ui/utilities/sizeConfigration.dart';
-
 import 'package:flutter/material.dart';
 
-class InputBox extends StatefulWidget {
+class InputField extends StatefulWidget {
   final String? hintText;
   final TextInputType? keyboardType;
   final Function(String) onChanged;
-  InputBox({
+  final String? inputValue;
+  InputField({
     this.hintText,
     this.keyboardType,
     required this.onChanged,
+    this.inputValue,
   });
 
   @override
-  _InputBoxState createState() => _InputBoxState();
+  _InputFieldState createState() => _InputFieldState();
 }
 
-class _InputBoxState extends State<InputBox> {
+class _InputFieldState extends State<InputField> {
   String? value;
+  var val = TextEditingController();
+
+  @override
+  void initState() {
+    super.initState();
+    setState(() {
+      val.text = "${widget.inputValue}";
+    });
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -30,6 +40,7 @@ class _InputBoxState extends State<InputBox> {
       ),
       // width: 100,
       child: TextField(
+        controller: val,
         onChanged: widget.onChanged,
         cursorColor: Colors.white,
         keyboardType: widget.keyboardType ?? TextInputType.text,

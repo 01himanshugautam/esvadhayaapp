@@ -1,26 +1,26 @@
 import 'dart:convert';
 import 'dart:io';
+
 import 'package:csv/csv.dart';
 import 'package:esvadhayaapp/ui/utilities/sizeConfigration.dart';
 import 'package:flutter/material.dart';
 
-class LoadCsvDataScreen extends StatelessWidget {
-  final String path;
-  final String title;
+class Attendance extends StatefulWidget {
+  Attendance({key});
 
-  LoadCsvDataScreen({
-    required this.path,
-    required this.title,
-  });
+  @override
+  _AttendanceState createState() => _AttendanceState();
+}
 
+class _AttendanceState extends State<Attendance> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: Text(title),
+        title: Text("Staff Details"),
       ),
       body: FutureBuilder(
-        future: loadingCsvData(path),
+        future: loadingCsvData("path"),
         builder: (context, AsyncSnapshot<List<dynamic>> snapshot) {
           print(snapshot.data.toString());
           return snapshot.hasData
@@ -44,7 +44,7 @@ class LoadCsvDataScreen extends StatelessWidget {
                                   // color: Colors.black,
                                   child: Center(
                                     child: Text(
-                                      data[1].toString(),
+                                      data[0].toString(),
                                       style: TextStyle(),
                                     ),
                                   ),
@@ -52,6 +52,16 @@ class LoadCsvDataScreen extends StatelessWidget {
                                 Container(
                                   height: 3 * SizeConfig.heightMultiplier,
                                   width: 9 * SizeConfig.heightMultiplier,
+                                  // color: Colors.black,
+                                  child: Center(
+                                    child: Text(
+                                      data[1].toString(),
+                                    ),
+                                  ),
+                                ),
+                                Container(
+                                  height: 3 * SizeConfig.heightMultiplier,
+                                  width: 8 * SizeConfig.heightMultiplier,
                                   // color: Colors.black,
                                   child: Center(
                                     child: Text(
@@ -67,51 +77,6 @@ class LoadCsvDataScreen extends StatelessWidget {
                                     child: Text(
                                       data[3].toString(),
                                     ),
-                                  ),
-                                ),
-                                Container(
-                                  height: 3 * SizeConfig.heightMultiplier,
-                                  width: 8 * SizeConfig.heightMultiplier,
-                                  // color: Colors.black,
-                                  child: Center(
-                                    child: Text(
-                                      data[4].toString(),
-                                    ),
-                                  ),
-                                ),
-                                Container(
-                                  height: 3 * SizeConfig.heightMultiplier,
-                                  width: 5 * SizeConfig.heightMultiplier,
-                                  // color: Colors.black,
-                                  child: Center(
-                                    child: Text(
-                                      data[5].toString(),
-                                    ),
-                                  ),
-                                ),
-                                Container(
-                                  height: 3 * SizeConfig.heightMultiplier,
-                                  width: 4 * SizeConfig.heightMultiplier,
-                                  // color: Colors.black,
-                                  child: Container(
-                                    child: (data[1].toString() == "NAME")
-                                        ? Center(child: Text("Edit"))
-                                        : Center(
-                                            child: IconButton(
-                                                onPressed: () {
-                                                  print("Edit");
-                                                  // Navigator.push(
-                                                  //   context,
-                                                  //   MaterialPageRoute(
-                                                  //     builder: (context) =>
-                                                  //         EditData(
-                                                  //       data: data,
-                                                  //     ),
-                                                  //   ),
-                                                  // );
-                                                },
-                                                icon: Icon(Icons.edit)),
-                                          ),
                                   ),
                                 ),
                               ],
